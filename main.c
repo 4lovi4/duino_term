@@ -23,6 +23,7 @@ int main (int argc, char **argv)
                 switch (opt) {
                         case 'f':
                                 if (!strncmp(optarg, "/dev/tty", 8)) {
+                                        sio_name = (char *)realloc(sio_name, (strlen(optarg) * sizeof(char) + 1));
                                         memset(sio_name, 0, sizeof(sio_name));
                                         strncpy(sio_name, optarg, strlen(optarg));
                                 }
