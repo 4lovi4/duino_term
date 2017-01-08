@@ -7,4 +7,4 @@ int read_sio();
 void term_usage(char *);
 
 int sio_fd;
-#endif
+#endif //__TERM_DUINO__

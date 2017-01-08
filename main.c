@@ -5,6 +5,9 @@
 #include <stdlib.h>
 
 #include "term.h"
+
+#define DEV_NAME "/dev/ttyACM0"
+
 extern char *optarg;
 extern int optind, opterr, optopt;
 extern int sio_fd;
@@ -14,7 +17,7 @@ int main (int argc, char **argv)
 {
         int opt;
 
-        sio_name = strdup("/dev/ttyS4");
+        sio_name = strdup(DEV_NAME);
 #ifdef DEBUG_DUINO
         fprintf(stderr, "In %s()\n", __PRETTY_FUNCTION__);
         fprintf(stderr, "default sio_name = %s\n", sio_name);
@@ -26,11 +29,16 @@ int main (int argc, char **argv)
                                         sio_name = (char *)realloc(sio_name, (strlen(optarg) * sizeof(char) + 1));
                                         memset(sio_name, 0, sizeof(sio_name));
                                         strncpy(sio_name, optarg, strlen(optarg));
+#ifdef DEBUG_DUINO
+                                        fprintf(stderr, "current sio_name = %s\n", sio_name);
+#endif
+                                        break;
                                 }
                         case 'h':
                                 term_usage(argv[0]);
+                                break;
                         default:
-                                ;
+                                break;
                 }
         }
         free(sio_name);
