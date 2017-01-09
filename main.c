@@ -10,7 +10,7 @@
 
 extern char *optarg;
 extern int optind, opterr, optopt;
-extern int sio_fd;
+int sio_fd;
 static char *sio_name;
 
 int main (int argc, char **argv)
@@ -41,6 +41,11 @@ int main (int argc, char **argv)
                                 break;
                 }
         }
+        if ( init_sio(sio_name) < 0) {
+                free(sio_name);
+                exit(1);
+        }
+        close_sio();
         free(sio_name);
         return 0;
 }
